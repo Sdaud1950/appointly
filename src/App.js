@@ -36,11 +36,12 @@ function App() {
   }
   const appointmentFilterData = AppointData.filter(item => {
     const queryLowerCase = query.toLowerCase();
-    
     return (
       item.petName.toLowerCase().includes(queryLowerCase) ||
       item.ownerName.toLowerCase().includes(queryLowerCase) ||
       item.aptNotes.toLowerCase().includes(queryLowerCase)
+      // item.aptDate.toLowerCase().includes(queryLowerCase)
+
     );
   }).sort((a, b) => {
     let order = (orderBy === 'asc') ? 1 : -1;
@@ -49,7 +50,7 @@ function App() {
         ? -1 * order : 1 * order
     )
   })
-  
+
 
 
   return (
@@ -58,7 +59,13 @@ function App() {
         Book Your Appointment < BiArchive className='inline-block text-red-200' />
       </h3>
       <AddAppointment />
-      <Search query={query} onQueryChange={MyQuery => setQuery(MyQuery)} />
+      <Search query={query} onQueryChange={MyQuery => setQuery(MyQuery)}
+        orderBy={orderBy}
+        onOrderByChange={myshort => setOrderBy(myshort)}
+        sortBy={sortBy}
+        onShortByChange={myshort => setSortBy(myshort)}
+
+      />
       <ul>
         {
           appointmentFilterData.map((data) => {
